@@ -5,6 +5,11 @@ import Busca from "./components/Busca";
 import ClimaAtual from "./components/ClimaAtual";
 import Previsao from "./components/Previsao";
 
+import "./AppStyles";
+import { ClimaContainer } from "./AppStyles";
+
+
+
 
 import { Titulo } from "./AppStyles";
 
@@ -15,6 +20,23 @@ function App() {
 
 
   const apiKey = import.meta.env.VITE_API_KEY || "";
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      console.log(position);
+
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const resposta = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&alon=${lon}&units=metric&lang=pt_br`);
+
+      setCidade(resposta.data.name);
+      setClima(resposta.data);
+
+
+
+    });
+  }, [apiKey]);
 
   const buscarClima = async () => {
     try {
@@ -38,7 +60,7 @@ function App() {
 
 
   return (
-    <div>
+    <ClimaContainer>
 
       <Titulo>Condições climáticas</Titulo>
       <Busca cidade={cidade} setCidade={setCidade} buscarClima={buscarClima} />
@@ -47,7 +69,7 @@ function App() {
 
 
 
-    </div>
+    </ClimaContainer>
   );
 };
 

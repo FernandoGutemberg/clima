@@ -1,4 +1,7 @@
 import React from "react";
+import "./ClimaAtualStyles";
+import { ClimaInfo } from "./ClimaAtualStyles";
+
 
 const ClimaAtual = ({ clima }) => {
     // Verifique se `clima` existe e se as propriedades `weather` e `main` são válidas
@@ -7,7 +10,7 @@ const ClimaAtual = ({ clima }) => {
     }
 
     return (
-        <div>
+        <ClimaInfo>
             <h3>Clima Atual</h3>
             <img
                 src={`http://openweathermap.org/img/wn/${clima.weather[0].icon}.png`}
@@ -15,7 +18,7 @@ const ClimaAtual = ({ clima }) => {
             />
             <p>{clima.main.temp}°C</p>
             <p>{clima.weather[0].description}</p>
-        </div>
+        </ClimaInfo>
     );
 };
 
